@@ -10,7 +10,7 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [spinner, setSpinner] = useState(false);
 
-    const [setUser] = Hooks()
+    const [, setUser] = Hooks()
 
 
 

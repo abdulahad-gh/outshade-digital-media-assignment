@@ -17,7 +17,7 @@ function App() {
         <Route path='/register' element={<Registation />} />
         <Route path='/dashboard' element={<Dashboard />} >
           <Route index element={<CreateProduct />} ></Route>
-          {/* <Route path='/create-product' element={<CreateProduct />}></Route> */}
+          <Route path='/dashboard/create-product' element={<CreateProduct />}></Route>
 
         </Route>
 

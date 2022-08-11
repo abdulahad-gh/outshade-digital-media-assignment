@@ -1,10 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom'
+import Hooks from './Hooks';
 const Navbar = () => {
-    const menuItems = <>
-        <li> <Link to='/login'>Login</Link></li>
-        <li> <Link to='/register'>Register</Link></li>
+    const { pathname } = useLocation();
+
+    const menuItems = <> {
+        pathname === '/dashboard' ? <li> <Link to='/login'>Logout</Link></li> :
+            <>
+                <li> <Link to='/login'>Login</Link></li>
+                <li> <Link to='/register'>Register</Link></li>
+            </>
+    }
     </>
+
     return (
         <div class="navbar bg-base-100">
             <div class="navbar-start">
@@ -20,16 +29,14 @@ const Navbar = () => {
                 </div>
                 <a class="btn btn-ghost normal-case text-xl">Outshade Digital Media</a>
             </div>
-            <div class="navbar-center hidden lg:flex">
+            <div class="navbar-end hidden lg:flex">
                 <ul class="menu menu-horizontal p-0">
                     {
                         menuItems
                     }
                 </ul>
             </div>
-            <div class="navbar-end">
-                <a class="btn">Get started</a>
-            </div>
+
         </div>
     );
 };

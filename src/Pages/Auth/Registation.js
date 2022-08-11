@@ -8,7 +8,7 @@ const Registation = () => {
 
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [setUser] = Hooks()
+    const [, setUser] = Hooks()
     // console.log(setUser);
 
 

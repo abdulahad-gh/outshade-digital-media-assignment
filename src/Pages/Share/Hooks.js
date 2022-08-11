@@ -14,7 +14,7 @@ const Hooks = () => {
         }
 
     }, [user, navigate])
-    return [setUser]
+    return [user, setUser]
 };
 
 export default Hooks;
