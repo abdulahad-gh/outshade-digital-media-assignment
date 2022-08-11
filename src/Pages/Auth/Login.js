@@ -1,18 +1,37 @@
 // import axios from 'axios';
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom'
+import Hooks from '../Share/Hooks';
+
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [spinner, setSpinner] = useState(false);
+
+    const [setUser] = Hooks()
+
+
+
 
     const onSubmit = data => {
-       
+        setSpinner(true)
 
-        const user = {
-            email: data.email,
-            password: data.password
-        }
+        axios.get(`http://localhost:5000/user?email=${data.email}`)
+            .then(res => {
+                if (res.data.success) {
+                    setSpinner(false)
+                    setUser(true)
+
+
+                }
+                else {
+                    setSpinner(false)
+                    document.getElementById('loginError').innerText = "your have no account, please create "
+                }
+            })
+
 
 
 
@@ -62,12 +81,13 @@ const Login = () => {
                             }
 
                         </label>
-                        
+
 
 
                         <p><small>forget password? <span>Reset</span></small> </p>
                         <p><small>no account? <Link to='/register'>Create Account</Link></small> </p>
-                        <input type='submit' className='btn btn-primary w-full' value='LogIn' />
+                        <p id='loginError' className='text-red-500'></p>
+                        <input type='submit' className='btn btn-primary w-full' value={spinner ? 'please wait...' : 'LogIn'} />
                     </form>
 
 
