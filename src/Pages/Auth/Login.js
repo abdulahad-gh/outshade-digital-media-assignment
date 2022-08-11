@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom'
@@ -7,22 +7,14 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
-        document.getElementById('loginError').innerText = ""
+       
 
         const user = {
             email: data.email,
             password: data.password
         }
 
-        axios.post('http://localhost:5000/user', user)
-            .then(res => {
-                if (res.data.success) {
-                    alert('login successfull')
-                }
-                else {
-                    document.getElementById('loginError').innerText = "your email is "
-                }
-            })
+
 
     };
 
@@ -70,7 +62,7 @@ const Login = () => {
                             }
 
                         </label>
-                        <p id="loginError" className='text-red-500'></p>
+                        
 
 
                         <p><small>forget password? <span>Reset</span></small> </p>

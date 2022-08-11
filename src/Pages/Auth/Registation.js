@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom'
+import axios from 'axios';
+import Hooks from '../Share/Hooks';
 
 const Registation = () => {
 
 
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const [setUser] = Hooks()
+    // console.log(setUser);
 
 
     //spinner state
@@ -13,9 +17,26 @@ const Registation = () => {
 
 
 
+
     const onSubmit = async data => {
+        document.getElementById('regError').innerText = ""
         setSpinner(true)
-        const { name, email, password, confirmPassword } = data
+
+
+        axios.post('http://localhost:5000/user', data)
+            .then(res => {
+                if (res.data.success) {
+                    setSpinner(false)
+                    alert('Registation successfull')
+                    setUser(true)
+
+
+                }
+                else {
+                    setSpinner(false)
+                    document.getElementById('regError').innerText = "your have already account please login "
+                }
+            })
     }
 
     return (
@@ -30,10 +51,12 @@ const Registation = () => {
 
 
 
+
                         <input placeholder='Name' {...register("name", {
                             required: {
                                 value: true,
                                 message: 'name is Required'
+
                             },
                             minLength: {
                                 value: 5,
@@ -108,7 +131,8 @@ const Registation = () => {
 
 
 
-                        <input type='submit' className='btn btn-primary w-full mt-5' value='Sign Up' />
+                        <input type='submit' className='btn btn-primary w-full mt-5' value={spinner ? 'Creating acount...' : 'Sign Up'} />
+                        <p id="regError" className='text-red-500'></p>
                     </form>
                     <p className='text-center'><small>already have an account? <Link className='text-primary ' to='/login'>LogIn</Link></small></p>
 
